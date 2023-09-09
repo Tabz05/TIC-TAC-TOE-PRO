@@ -1,9 +1,5 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:tictactoepro/screens/multiPlayer/multi_player_result.dart';
 import 'package:tictactoepro/shared/colors.dart';
 
@@ -89,6 +85,7 @@ class _MultiPlayerGameState extends State<MultiPlayerGame> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundColor,
@@ -97,6 +94,7 @@ class _MultiPlayerGameState extends State<MultiPlayerGame> {
           height: double.infinity,
           margin: EdgeInsets.all(20),
           child: Column(children: [
+            SizedBox(height:100),
             Expanded(
                 child: GridView.count(
               crossAxisCount: 3,

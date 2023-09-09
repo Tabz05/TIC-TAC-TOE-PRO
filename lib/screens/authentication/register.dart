@@ -12,7 +12,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -21,11 +20,12 @@ class _RegisterState extends State<Register> {
   String _password = "";
   String _error = "";
 
+  bool _showPass = false;
+
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
-      child: Scaffold(
+        child: Scaffold(
       backgroundColor: backgroundColor,
       body: Container(
         width: double.infinity,
@@ -101,11 +101,23 @@ class _RegisterState extends State<Register> {
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Colors.black)),
                     child: TextFormField(
-                      obscureText: true,
+                      obscureText: !_showPass,
                       decoration: InputDecoration(
-                          hintText: "Password",
-                          icon: Icon(Icons.lock),
-                          border: InputBorder.none),
+                        hintText: "Password",
+                        icon: Icon(Icons.lock),
+                        border: InputBorder.none,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showPass = !_showPass;
+                            });
+                          },
+                          child: Icon(
+                            _showPass ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
                           return "Please enter password";
@@ -126,6 +138,9 @@ class _RegisterState extends State<Register> {
                   GestureDetector(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
+
+                        _email = _email.trim();
+
                         dynamic result =
                             await _auth.registerWithEmailAndPassword(
                                 _email, _password, _username);
@@ -140,8 +155,7 @@ class _RegisterState extends State<Register> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  HomeLogIn(result.uid!.toString()),
+                              builder: (_) => HomeLogIn(result.uid!.toString()),
                             ),
                           );
                         }

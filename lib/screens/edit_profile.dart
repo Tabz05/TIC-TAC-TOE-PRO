@@ -9,6 +9,7 @@ import 'package:tictactoepro/screens/home_log_in_main.dart';
 import 'package:tictactoepro/screens/myProfile.dart';
 import 'package:tictactoepro/services/database_service.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -51,13 +52,15 @@ class _EditProfileState extends State<EditProfile> {
       }
     }
 
+  bool _loading=false;  
+
   @override
   Widget build(BuildContext context) {
     
     final _userDetails = Provider.of<UserDataModel?>(context);
 
-    return _userDetails == null
-        ? SizedBox()
+    return _userDetails == null || _loading
+        ? Loading()
         : SafeArea(
             child: Scaffold(
                 backgroundColor: backgroundColor,
@@ -180,6 +183,10 @@ class _EditProfileState extends State<EditProfile> {
                         GestureDetector(
                           onTap: () async {
 
+                            setState(() {
+                              _loading = true;
+                            });
+
                             _imageFile!=null ? 
                             await _databaseService.uploadProfilePic(_userDetails.uid!,_imageFile!) :
                             print('pressed');
@@ -187,6 +194,13 @@ class _EditProfileState extends State<EditProfile> {
                             _username!=null && !_username!.isEmpty ? 
                             await _databaseService.updateUsername(_userDetails.uid!,_username!) :
                             print('pressed');
+
+                             setState(() {
+                              _loading = false;
+                            });
+
+                            SnackBar _snackBar = SnackBar(content: Text('Profile Updated!'));
+                            ScaffoldMessenger.of(context).showSnackBar(_snackBar);
 
                           },
                           child: Container(

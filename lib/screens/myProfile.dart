@@ -3,6 +3,7 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:tictactoepro/models/user_data_model.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -17,11 +18,16 @@ class _MyProfileState extends State<MyProfile> {
     
     final _userDetails = Provider.of<UserDataModel?>(context);
 
-    Map<String, double>? _matchMap = null;
-    Map<String, double>? _wonMap = null;
-    Map<String, double>? _turnMap = null;
+    Map<String,double>? _matchMap = null;
+    Map<String,double>? _wonMap = null;
+    Map<String,double>? _turnMap = null;
+
+    Map<String,double>? _multiMatchMap = null;
+    Map<String,double>? _multiWonMap = null;
+    Map<String,double>? _multiTurnMap = null;
 
     if (_userDetails != null) {
+      
       _matchMap = {
         'Matches Won': _userDetails.won!.toDouble(),
         'Matches Lost': _userDetails.lost!.toDouble(),
@@ -37,10 +43,26 @@ class _MyProfileState extends State<MyProfile> {
         'First Turn': _userDetails.first!.toDouble(),
         'Second Turn': _userDetails.second!.toDouble(),
       };
+
+      _multiMatchMap = {
+        'Matches Won': _userDetails.multi_won!.toDouble(),
+        'Matches Lost': _userDetails.multi_lost!.toDouble(),
+        'Matches Draw': _userDetails.multi_draw!.toDouble(),
+      };
+
+      _multiWonMap = {
+        'Won First': _userDetails.multi_wonFirst!.toDouble(),
+        'Won Second': _userDetails.multi_wonSecond!.toDouble(),
+      };
+
+      _multiTurnMap = {
+        'First Turn': _userDetails.multi_first!.toDouble(),
+        'Second Turn': _userDetails.multi_second!.toDouble(),
+      };
     }
 
     return _userDetails == null
-        ? SizedBox()
+        ? Loading()
         : SafeArea(
             child: Scaffold(
             backgroundColor: backgroundColor,
@@ -75,6 +97,11 @@ class _MyProfileState extends State<MyProfile> {
                     SizedBox(
                       height: 30,
                     ),
+                    Text('Single Player Games',
+                        style: TextStyle(fontSize: 16)),
+                    SizedBox(
+                      height: 30,
+                    ),
                     PieChart(
                       dataMap: _matchMap!,
                       chartRadius: MediaQuery.of(context).size.width / 2,
@@ -94,6 +121,33 @@ class _MyProfileState extends State<MyProfile> {
                         chartValuesOptions: ChartValuesOptions(
                         decimalPlaces: 0,
                       ),),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text('Multi Player Games',
+                        style: TextStyle(fontSize: 16)),
+                    SizedBox(
+                      height: 30,
+                    ), 
+                    PieChart(
+                      dataMap: _multiMatchMap!,
+                      chartRadius: MediaQuery.of(context).size.width / 2,
+                      chartValuesOptions: ChartValuesOptions(
+                        decimalPlaces: 0,
+                      ),
+                    ),
+                    PieChart(
+                        dataMap: _multiWonMap!,
+                        chartRadius: MediaQuery.of(context).size.width / 2,
+                        chartValuesOptions: ChartValuesOptions(
+                        decimalPlaces: 0,
+                      )),
+                    PieChart(
+                        dataMap: _multiTurnMap!,
+                        chartRadius: MediaQuery.of(context).size.width / 2,
+                        chartValuesOptions: ChartValuesOptions(
+                        decimalPlaces: 0,
+                      ),),   
                   ],
                 ),
               ),

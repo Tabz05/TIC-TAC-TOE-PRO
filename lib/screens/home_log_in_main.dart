@@ -3,10 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:tictactoepro/models/user_data_model.dart';
 import 'package:tictactoepro/screens/edit_profile.dart';
 import 'package:tictactoepro/screens/home.dart';
+import 'package:tictactoepro/screens/invitations.dart';
+import 'package:tictactoepro/screens/multiPlayerLoggedIn/user_list.dart';
 import 'package:tictactoepro/screens/myProfile.dart';
 import 'package:tictactoepro/screens/singlePlayerLoggedIn/log_in_choose_symbol.dart';
 import 'package:tictactoepro/services/auth_service.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class HomeLogInMain extends StatefulWidget {
   const HomeLogInMain({super.key});
@@ -16,6 +19,7 @@ class HomeLogInMain extends StatefulWidget {
 }
 
 class _HomeLogInMainState extends State<HomeLogInMain> {
+  
   final AuthService _auth = AuthService();
 
   @override
@@ -26,7 +30,7 @@ class _HomeLogInMainState extends State<HomeLogInMain> {
     print('This: ' + _userDetails.toString());
 
     return _userDetails == null
-        ? SizedBox()
+        ? Loading()
         : SafeArea(
             child: Scaffold(
               backgroundColor: backgroundColor,
@@ -51,6 +55,23 @@ class _HomeLogInMainState extends State<HomeLogInMain> {
                       child: ListTile(
                         leading: Icon(Icons.person),
                         title: Text(_userDetails.username!),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ChangeNotifierProvider.value(
+                              value: _userDetails,
+                              child: Invitations(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.email),
+                        title: Text('Invites'),
                       ),
                     ),
                     GestureDetector(
@@ -104,6 +125,11 @@ class _HomeLogInMainState extends State<HomeLogInMain> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
+                      Text(
+                        'PRO',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      ),
                       Flexible(
                         flex: 2,
                         fit: FlexFit.tight,
@@ -137,6 +163,32 @@ class _HomeLogInMainState extends State<HomeLogInMain> {
                                 color: Colors.red),
                             padding: EdgeInsets.all(10),
                             child: Text('Single Player',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16))),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: SizedBox(),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChangeNotifierProvider.value(
+                                value: _userDetails,
+                                child: UserList(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.red),
+                            padding: EdgeInsets.all(10),
+                            child: Text('Multi Player',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16))),
                       ),

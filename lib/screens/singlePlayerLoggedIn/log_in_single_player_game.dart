@@ -6,6 +6,7 @@ import 'package:tictactoepro/models/user_data_model.dart';
 import 'package:tictactoepro/screens/singlePlayerLoggedIn/log_in_single_player_result.dart';
 import 'package:tictactoepro/services/database_service.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class LogInSinglePlayerGame extends StatefulWidget {
   final String _playerTurn;
@@ -17,6 +18,7 @@ class LogInSinglePlayerGame extends StatefulWidget {
 }
 
 class _LogInSinglePlayerGameState extends State<LogInSinglePlayerGame> {
+  
   List<int> _board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   bool _plTrn = true;
@@ -247,7 +249,7 @@ class _LogInSinglePlayerGameState extends State<LogInSinglePlayerGame> {
     _db = DatabaseService();
 
     return _userDetails == null
-        ? SizedBox()
+        ? Loading()
         : SafeArea(
             child: Scaffold(
               backgroundColor: backgroundColor,
@@ -261,6 +263,7 @@ class _LogInSinglePlayerGameState extends State<LogInSinglePlayerGame> {
                       'Your turn: ' + widget._playerTurn + '\n',
                       style: TextStyle(fontSize: 16),
                     ),
+                    SizedBox(height:100),
                     Expanded(
                       child: GridView.count(
                         crossAxisCount: 3,

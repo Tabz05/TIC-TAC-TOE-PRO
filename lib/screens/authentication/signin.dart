@@ -24,6 +24,8 @@ class _SignInState extends State<SignIn> {
   String _password = "";
   String _error = "";
 
+  bool _showPass=false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -79,11 +81,22 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Colors.black)),
                     child: TextFormField(
-                      obscureText: true,
+                      obscureText: !_showPass,
                       decoration: InputDecoration(
                           hintText: "Password",
                           icon: Icon(Icons.lock),
-                          border: InputBorder.none),
+                          border: InputBorder.none,
+                          suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showPass = !_showPass;
+                            });
+                          },
+                          child: Icon(
+                            _showPass ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.grey,
+                          ),
+                        ),),
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
                           return "Please enter password";
@@ -104,6 +117,9 @@ class _SignInState extends State<SignIn> {
                   GestureDetector(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
+
+                        _email = _email.trim();
+                        
                         dynamic result = await _auth.signInEmailAndPassword(
                             _email, _password);
 

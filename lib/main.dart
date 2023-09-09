@@ -17,7 +17,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
 
-  Future userAccepted() async {
+  Future _userAccepted() async {
     
     SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FutureBuilder(
-      future: userAccepted(),
+      future: _userAccepted(),
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {

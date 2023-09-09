@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tictactoepro/models/user_data_model.dart';
 import 'package:tictactoepro/screens/singlePlayerLoggedIn/log_in_single_player_game.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class LogInChooseSymbol extends StatefulWidget {
   const LogInChooseSymbol({super.key});
@@ -22,7 +23,7 @@ class _LogInChooseSymbolState extends State<LogInChooseSymbol> {
 
     print("sym: "+_userDetails.toString());
 
-    return SafeArea(
+    return _userDetails==null? Loading() : SafeArea(
        child: Scaffold(  
          backgroundColor: backgroundColor,
          body: Container(  

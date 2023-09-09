@@ -18,7 +18,7 @@ class _InitializerWidgetFinState extends State<InitializerWidgetFin> {
 
     final _user = Provider.of<UserIdModel?>(context);
 
-    print("over hereee"+_user.toString());
+    print("over hereee: "+_user.toString());
 
     return _user==null? Home() : HomeLogIn(_user.uid!.toString());
   }

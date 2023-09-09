@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tictactoepro/models/user_data_model.dart';
 import 'package:tictactoepro/screens/home_log_in.dart';
-import 'package:tictactoepro/screens/home_log_in_main.dart';
 import 'package:tictactoepro/screens/singlePlayerLoggedIn/log_in_single_player_game.dart';
 import 'package:tictactoepro/shared/colors.dart';
+import 'package:tictactoepro/shared/loading.dart';
 
 class LogInSinglePlayerResult extends StatefulWidget {
 
@@ -23,9 +23,10 @@ class _LogInSinglePlayerResultState extends State<LogInSinglePlayerResult> {
 
   @override
   Widget build(BuildContext context) {
+
     final _userDetails = Provider.of<UserDataModel?>(context);
 
-    return SafeArea(
+    return _userDetails==null? Loading() : SafeArea(
         child: Scaffold(
       backgroundColor: backgroundColor,
       body: Container(
@@ -81,7 +82,7 @@ class _LogInSinglePlayerResultState extends State<LogInSinglePlayerResult> {
                 MaterialPageRoute(
                   builder: (_) => ChangeNotifierProvider.value(
                     value: _userDetails,
-                    child: HomeLogIn(_userDetails!.uid!)
+                    child: HomeLogIn(_userDetails.uid!)
                   ),
                 ),
               );

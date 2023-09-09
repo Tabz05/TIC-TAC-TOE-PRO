@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class UserDataModel with ChangeNotifier{
+class InviteReceiverDataModel with ChangeNotifier{
 
-   String? uid;
-   String? username;
-   String? email;
+   final String? uid;
+   final String? username;
+   final String? email;
 
    int? matches;
    int? won;
@@ -33,14 +33,9 @@ class UserDataModel with ChangeNotifier{
 
    List<String>? invites=[];
 
-   UserDataModel({this.uid,this.username,this.email,this.matches,this.won,this.lost, this.draw,
+   InviteReceiverDataModel({this.uid,this.username,this.email,this.matches,this.won,this.lost, this.draw,
                   this.first,this.second,this.wonFirst,this.wonSecond,this.multi_matches,this.multi_won,
                   this.multi_lost, this.multi_draw,this.multi_first,this.multi_second,this.multi_wonFirst,
                   this.multi_wonSecond,this.hasProfilePic,this.profilePicUri,this.invites});
-  
-  void updateNotify()
-  {
-      print('notifyinggggg');
-      notifyListeners();
-  }
+
 }

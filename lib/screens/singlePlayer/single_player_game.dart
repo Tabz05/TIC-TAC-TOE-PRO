@@ -216,6 +216,7 @@ class _SinglePlayerGameState extends State<SinglePlayerGame> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundColor,
@@ -229,88 +230,89 @@ class _SinglePlayerGameState extends State<SinglePlayerGame> {
                 'Your symbol: ' + widget._playerSym + '\n',
                 style: TextStyle(fontSize: 16),
               ),
+              SizedBox(height:100),
               Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 3,
-                  children: List.generate(9, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        _plTrn && _board[index] == 0 && _enableTap
-                            ? setState(
-                                () {
-                                  _board[index] = _plr;
-                                  _plTrn = false;
-
-                                  int _score = gameOver();
-
-                                  _score != -2
-                                      ? setState(
-                                          () {
-                                            _enableTap = false;
-                                          },
-                                        )
-                                      : print('');
-
-                                  _score != -2
-                                      ? Timer(
-                                          const Duration(seconds: 1),
-                                          () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SinglePlayerResult(
-                                                            _score.toString(),
-                                                            widget._playerSym,
-                                                            widget
-                                                                ._playerTurn)));
-                                          },
-                                        )
-                                      : Timer(
-                                          const Duration(seconds: 1),
-                                          () {
-                                            _compTurn();
-                                          },
-                                        );
-                                },
-                              )
-                            : print('');
-                      },
-                      child: Container(
-                        child: _board[index] == 1
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  image: DecorationImage(
-                                    image: widget._playerSym == 'X'
-                                        ? AssetImage('assets/x.jpg')
-                                        : AssetImage('assets/o.jpg'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            : _board[index] == 2
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(),
-                                      image: DecorationImage(
-                                        image: widget._playerSym == 'X'
-                                            ? AssetImage('assets/o.jpg')
-                                            : AssetImage('assets/x.jpg'),
-                                        fit: BoxFit.cover,
-                                      ),
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 3,
+                    crossAxisSpacing: 3,
+                    children: List.generate(9, (index) {
+                      return GestureDetector(
+                        onTap: () {
+                          _plTrn && _board[index] == 0 && _enableTap
+                              ? setState(
+                                  () {
+                                    _board[index] = _plr;
+                                    _plTrn = false;
+                
+                                    int _score = gameOver();
+                
+                                    _score != -2
+                                        ? setState(
+                                            () {
+                                              _enableTap = false;
+                                            },
+                                          )
+                                        : print('');
+                
+                                    _score != -2
+                                        ? Timer(
+                                            const Duration(seconds: 1),
+                                            () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SinglePlayerResult(
+                                                              _score.toString(),
+                                                              widget._playerSym,
+                                                              widget
+                                                                  ._playerTurn)));
+                                            },
+                                          )
+                                        : Timer(
+                                            const Duration(seconds: 1),
+                                            () {
+                                              _compTurn();
+                                            },
+                                          );
+                                  },
+                                )
+                              : print('');
+                        },
+                        child: Container(
+                          child: _board[index] == 1
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(),
+                                    image: DecorationImage(
+                                      image: widget._playerSym == 'X'
+                                          ? AssetImage('assets/x.jpg')
+                                          : AssetImage('assets/o.jpg'),
+                                      fit: BoxFit.cover,
                                     ),
-                                  )
-                                : Container(
-                                    decoration:
-                                        BoxDecoration(border: Border.all()),
                                   ),
-                      ),
-                    );
-                  }),
+                                )
+                              : _board[index] == 2
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        image: DecorationImage(
+                                          image: widget._playerSym == 'X'
+                                              ? AssetImage('assets/o.jpg')
+                                              : AssetImage('assets/x.jpg'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration:
+                                          BoxDecoration(border: Border.all()),
+                                    ),
+                        ),
+                      );
+                    }),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

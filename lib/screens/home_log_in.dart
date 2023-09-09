@@ -7,7 +7,6 @@ import 'package:tictactoepro/services/database_service.dart';
 class HomeLogIn extends StatefulWidget {
   
   String? _userId;
-
   HomeLogIn(this._userId);
 
   @override
@@ -17,6 +16,8 @@ class HomeLogIn extends StatefulWidget {
 class _HomeLogInState extends State<HomeLogIn> {
   @override
   Widget build(BuildContext context) {
+
+    print('home log in....');
       
     return StreamProvider<UserDataModel?>.value(
       catchError:(_,__)=>null,

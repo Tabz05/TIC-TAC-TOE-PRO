@@ -71,6 +71,7 @@ class _HomeState extends State<Home> {
                  ),
 
                  Text('TIC-TAC-TOE',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
+                 Text('PRO',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
 
                  Flexible(   
                   flex:2,
