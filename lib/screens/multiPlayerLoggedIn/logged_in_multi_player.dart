@@ -6,6 +6,7 @@ import 'package:tictactoepro/services/database_service.dart';
 
 class LoggedInMultiPlayer extends StatefulWidget {
   
+  final bool? declineInvite;
   final String? currUserId;
   final String? senderId;
   final String? receiverId;
@@ -17,13 +18,30 @@ class LoggedInMultiPlayer extends StatefulWidget {
   final String? receiverProfilePicUri;
   final String? multiPlayerGameId;
 
-  LoggedInMultiPlayer(this.currUserId,this.senderId,this.receiverId,this.senderUsername,this.receiverUsername,this.senderHasProfilePic,this.receiverHasProfilePic,this.senderProfilePicUri,this.receiverProfilePicUri,this.multiPlayerGameId);
+  LoggedInMultiPlayer(this.declineInvite,this.currUserId,this.senderId,this.receiverId,this.senderUsername,this.receiverUsername,this.senderHasProfilePic,this.receiverHasProfilePic,this.senderProfilePicUri,this.receiverProfilePicUri,this.multiPlayerGameId);
 
   @override
   State<LoggedInMultiPlayer> createState() => _LoggedInMultiPlayerState();
 }
 
 class _LoggedInMultiPlayerState extends State<LoggedInMultiPlayer> {
+
+  final DatabaseService _databaseService = DatabaseService();
+
+  Future removeInvite() async{ 
+    await _databaseService.declineInvite(widget.senderId,widget.receiverId);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    
+    if(widget.declineInvite!)
+    {
+        removeInvite();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
       

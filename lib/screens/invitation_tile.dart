@@ -64,7 +64,7 @@ class _InvitationTileState extends State<InvitationTile> {
                     }
 
                     Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LoggedInMultiPlayer(_userDetails.uid,widget.inviteSenderDataModel.uid,_userDetails.uid,widget.inviteSenderDataModel.username,_userDetails.username,widget.inviteSenderDataModel.hasProfilePic,_userDetails.hasProfilePic,widget.inviteSenderDataModel.profilePicUri,_userDetails.profilePicUri,widget.inviteSenderDataModel.uid!+_userDetails.uid!)));
+                    builder: (context) => LoggedInMultiPlayer(true,_userDetails.uid,widget.inviteSenderDataModel.uid,_userDetails.uid,widget.inviteSenderDataModel.username,_userDetails.username,widget.inviteSenderDataModel.hasProfilePic,_userDetails.hasProfilePic,widget.inviteSenderDataModel.profilePicUri,_userDetails.profilePicUri,widget.inviteSenderDataModel.uid!+_userDetails.uid!)));
                     
                  },
                  child: Container( 

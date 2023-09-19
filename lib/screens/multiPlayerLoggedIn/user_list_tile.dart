@@ -30,7 +30,7 @@ class _UserListTileState extends State<UserListTile> {
          await _databaseService.sendInvite(_userDetails.uid,widget.inviteReceiverDataModel.uid);
 
          Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LoggedInMultiPlayer(_userDetails.uid,_userDetails.uid,widget.inviteReceiverDataModel.uid,_userDetails.username,widget.inviteReceiverDataModel.username,_userDetails.hasProfilePic,widget.inviteReceiverDataModel.hasProfilePic,_userDetails.profilePicUri,widget.inviteReceiverDataModel.profilePicUri,_userDetails.uid!+widget.inviteReceiverDataModel.uid!)));
+                    builder: (context) => LoggedInMultiPlayer(false,_userDetails.uid,_userDetails.uid,widget.inviteReceiverDataModel.uid,_userDetails.username,widget.inviteReceiverDataModel.username,_userDetails.hasProfilePic,widget.inviteReceiverDataModel.hasProfilePic,_userDetails.profilePicUri,widget.inviteReceiverDataModel.profilePicUri,_userDetails.uid!+widget.inviteReceiverDataModel.uid!)));
       }),
       child: Card(
             child: ListTile(
