@@ -29,6 +29,8 @@ class _UserListTileState extends State<UserListTile> {
       onTap: (() async{
          await _databaseService.sendInvite(_userDetails.uid,widget.inviteReceiverDataModel.uid);
 
+         await _databaseService.resetMultiPlayerGame(_userDetails.uid,widget.inviteReceiverDataModel.uid,_userDetails.hasProfilePic,widget.inviteReceiverDataModel.hasProfilePic,_userDetails.profilePicUri,widget.inviteReceiverDataModel.profilePicUri,true,false);
+
          Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => LoggedInMultiPlayer(false,_userDetails.uid,_userDetails.uid,widget.inviteReceiverDataModel.uid,_userDetails.username,widget.inviteReceiverDataModel.username,_userDetails.hasProfilePic,widget.inviteReceiverDataModel.hasProfilePic,_userDetails.profilePicUri,widget.inviteReceiverDataModel.profilePicUri,_userDetails.uid!+widget.inviteReceiverDataModel.uid!)));
       }),

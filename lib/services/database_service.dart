@@ -364,6 +364,8 @@ class DatabaseService {
   Future resetMultiPlayerGame(String? sender,String? receiver,bool? senderHasProfilePic,
   bool? receiverHasProfilePic,String? senderProfilePicUri,String? receiverProfilePicUri,bool? senderHasJoined,bool? receiverHasJoined)async {
 
+    try{
+
     return await _multiPlayerGameCollection.doc(sender! + receiver!).update({
       'multiPlayerGameId': sender + receiver,
       'sender': sender,
@@ -376,6 +378,11 @@ class DatabaseService {
       'cancelled':false,
       'board': ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
     });
+    }
+    catch(e)
+    {
+      print(e.toString());
+    }
   }
 
   Future updateMultiPlayerGame(String? multiplayerGameId, int index, int plTurn) async {

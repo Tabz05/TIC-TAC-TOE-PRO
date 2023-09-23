@@ -211,8 +211,8 @@ class _LoggedInMultiPlayerFinState extends State<LoggedInMultiPlayerFin> {
                                                     _plTrn);
 
                                             // Wait for the update to complete before checking game over condition
-                                           /* await Future.delayed(
-                                                Duration(seconds: 1)); */
+                                            await Future.delayed(
+                                                Duration(seconds: 1)); 
 
                                             int _score = gameOver();
 

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
 
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: Agreement(),
+                home: InitializerWidget(),
               );
             } else {
               return MaterialApp(

@@ -29,6 +29,7 @@ class _LoggedInMultiPlayerState extends State<LoggedInMultiPlayer> {
   final DatabaseService _databaseService = DatabaseService();
 
   Future removeInvite() async{ 
+    print('removing');
     await _databaseService.declineInvite(widget.senderId,widget.receiverId);
   }
 
